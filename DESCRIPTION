@@ -1,0 +1,14 @@
+Package: demoShiny
+Title: Runs a Shiny app as demo or shows an overview of available Shiny apps
+Version: 0.1
+Authors@R: 
+  person("Sigbert", "Klinke", email="sigbert@hu-berlin.de", role=c("aut", "cre"))
+Description: Mimics the R `demo` functionality for Shiny apps in a package. In the subdirectory `inst/shiny` the apps should be stored and can be called by `demoShiny(topic)`.
+Depends: shiny
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.0.2
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
