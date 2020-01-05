@@ -13,7 +13,7 @@
 #' @examples
 #' # collect all apps of loaded packages
 #' demoShiny() 
-#' # collect all apps of the package gettext or with the name gettext
+#' # collect all apps of the package demoShiny or with the name demoShiny
 #' demoShiny('demoShiny') 
 #' \dontrun{
 #'   demoShiny('demoShiny::app1') 
