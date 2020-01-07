@@ -1,6 +1,5 @@
 library("shinydashboard")
 library("cluster")
-library("gettext")
 
 n  <- 25
 cl <- matrix(rnorm(4*n), ncol=2)
