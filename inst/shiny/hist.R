@@ -5,4 +5,4 @@ launch.browser <- function(url) {
 }
 #
 library("shiny")
-runApp(system.file('shiny', 'app1', package='demoShiny'), launch.browser=launch.browser)
+runApp(system.file('shiny', 'hist', package='demoShiny'), launch.browser=launch.browser)

@@ -15,8 +15,8 @@
 #' demoShiny() 
 #' # collect all apps of the package demoShiny or with the name demoShiny
 #' demoShiny('demoShiny') 
-#' \dontrun{
-#'   demoShiny('demoShiny::app1') 
+#' if(interactive()) {
+#'   demoShiny('demoShiny::hist') 
 #'   demoShiny('silhouette') 
 #'   # use partial matching
 #'   demoShiny('silh') 

@@ -33,13 +33,13 @@ demoShiny()
 
 The output is a data frame with `package::topic` and the file or directory which would be called by `demoShiny`.
 
-You can question for a specific apps
+You can question for specific apps:
 
 ```{r}
 demoShiny('demoShiny')
 ```
 
-which delivers all demo apps of the package `demoShiny` **AND** all apps named `demoShiny`!
+It will deliver all demo apps of the package `demoShiny` **AND** all apps named `demoShiny`!
 
 # How to run a single example app?
 
@@ -47,11 +47,11 @@ In case that for your topic is just one app available then no list will be retur
 
 ```{r eval=FALSE}
 # full topic
-demoShiny('demoShiny::app1')
-# if only one app1 is available then it will be run
-demoShiny('app1')
+demoShiny('demoShiny::hist')
+# if only one app is available then it will be run
+demoShiny('hist')
 # abbreviation for topics or packages can used
-demoShiny('d::app1')
+demoShiny('d::hist')
 ```
 
 # App installation for a package in `inst/shiny`
@@ -65,8 +65,8 @@ list.files(system.file('shiny', package="demoShiny"), include.dirs=TRUE)
 
 As you can see the `shiny` subdirectory of `demoShiny` contains several directories, e.g. `app1`, `silhouette`, and also a file `app1.R`. 
 
-If you put a R file with the same name as a directory then the R file is sourced rather 
-the app in the directory is called. The aim is to allow for a specfic calls to the app, e.g. by setting URL parameters:
+If you put an R file with the same name as a directory then the R file is sourced instead of calling
+the app in the directory. The aim is to allow for a specific calls to the app, e.g. by setting URL parameters:
 
-```{r, code=readLines(system.file('shiny', 'app1.R', package='demoShiny')), eval=FALSE}
+```{r, code=readLines(system.file('shiny', 'hist.R', package='demoShiny')), eval=FALSE}
 ```

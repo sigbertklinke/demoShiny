@@ -180,7 +180,7 @@ summary {
 <h4 class="author">Sigbert Klinke</h4>
 <a class="author_email" href="mailto:#"><a href="mailto:sigbert@hu-berlin.de">sigbert@hu-berlin.de</a></a>
 </address>
-<h4 class="date">05 Januar, 2020</h4>
+<h4 class="date">09 Januar, 2020</h4>
 
 </div>
 
@@ -200,39 +200,39 @@ summary {
 #&gt; Loading required package: shiny
 demoShiny()
 #&gt;   topic                
-#&gt; 1 demoShiny::app1      
+#&gt; 1 demoShiny::hist      
 #&gt; 3 demoShiny::silhouette
-#&gt;   file                                                                 
-#&gt; 1 /home/sk/R/x86_64-pc-linux-gnu-library/3.6/demoShiny/shiny/app1.R    
-#&gt; 3 /home/sk/R/x86_64-pc-linux-gnu-library/3.6/demoShiny/shiny/silhouette</code></pre>
+#&gt;   file                                                                      
+#&gt; 1 /home/sigbert/R/x86_64-pc-linux-gnu-library/3.6/demoShiny/shiny/hist.R    
+#&gt; 3 /home/sigbert/R/x86_64-pc-linux-gnu-library/3.6/demoShiny/shiny/silhouette</code></pre>
 <p>The output is a data frame with <code>package::topic</code> and the file or directory which would be called by <code>demoShiny</code>.</p>
-<p>You can question for a specific apps</p>
+<p>You can question for specific apps:</p>
 <pre class="r"><code>demoShiny('demoShiny')
 #&gt;   topic                
-#&gt; 1 demoShiny::app1      
+#&gt; 1 demoShiny::hist      
 #&gt; 3 demoShiny::silhouette
-#&gt;   file                                                                 
-#&gt; 1 /home/sk/R/x86_64-pc-linux-gnu-library/3.6/demoShiny/shiny/app1.R    
-#&gt; 3 /home/sk/R/x86_64-pc-linux-gnu-library/3.6/demoShiny/shiny/silhouette</code></pre>
-<p>which delivers all demo apps of the package <code>demoShiny</code> <strong>AND</strong> all apps named <code>demoShiny</code>!</p>
+#&gt;   file                                                                      
+#&gt; 1 /home/sigbert/R/x86_64-pc-linux-gnu-library/3.6/demoShiny/shiny/hist.R    
+#&gt; 3 /home/sigbert/R/x86_64-pc-linux-gnu-library/3.6/demoShiny/shiny/silhouette</code></pre>
+<p>It will deliver all demo apps of the package <code>demoShiny</code> <strong>AND</strong> all apps named <code>demoShiny</code>!</p>
 </div>
 <div id="how-to-run-a-single-example-app" class="section level1">
 <h1>How to run a single example app?</h1>
 <p>In case that for your topic is just one app available then no list will be returned but the Shiny demo app will be started:</p>
 <pre class="r"><code># full topic
-demoShiny('demoShiny::app1')
-# if only one app1 is available then it will be run
-demoShiny('app1')
+demoShiny('demoShiny::hist')
+# if only one app is available then it will be run
+demoShiny('hist')
 # abbreviation for topics or packages can used
-demoShiny('d::app1')</code></pre>
+demoShiny('d::hist')</code></pre>
 </div>
 <div id="app-installation-for-a-package-in-instshiny" class="section level1">
 <h1>App installation for a package in <code>inst/shiny</code></h1>
 <p>If you develop a package then create under <code>inst</code> a directory <code>shiny</code>. Each subdirectory of <code>shiny</code> can contain one app. The name of the subdirectory is the topic name.</p>
 <pre class="r"><code>list.files(system.file('shiny', package=&quot;demoShiny&quot;), include.dirs=TRUE)
-#&gt; [1] &quot;app1&quot;       &quot;app1.R&quot;     &quot;silhouette&quot;</code></pre>
+#&gt; [1] &quot;hist&quot;       &quot;hist.R&quot;     &quot;silhouette&quot;</code></pre>
 <p>As you can see the <code>shiny</code> subdirectory of <code>demoShiny</code> contains several directories, e.g. <code>app1</code>, <code>silhouette</code>, and also a file <code>app1.R</code>.</p>
-<p>If you put a R file with the same name as a directory then the R file is sourced rather the app in the directory is called. The aim is to allow for a specfic calls to the app, e.g. by setting URL parameters:</p>
+<p>If you put an R file with the same name as a directory then the R file is sourced instead of calling the app in the directory. The aim is to allow for a specific calls to the app, e.g. by setting URL parameters:</p>
 <pre class="r"><code>launch.browser &lt;- function(url) {
   # modify URL, which has no effect for app1 :(
   url &lt;- sprintf('%s/?lang=%s', url, 'de')
@@ -240,7 +240,7 @@ demoShiny('d::app1')</code></pre>
 }
 #
 library(&quot;shiny&quot;)
-runApp(system.file('shiny', 'app1', package='demoShiny'), launch.browser=launch.browser)</code></pre>
+runApp(system.file('shiny', 'hist', package='demoShiny'), launch.browser=launch.browser)</code></pre>
 </div>
 
 
