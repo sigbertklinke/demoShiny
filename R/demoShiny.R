@@ -5,14 +5,16 @@
 #' For more details see \code{vignettes('demoShiny')}.
 #'
 #' @param topic character: the topic which should be demonstrated
+#' @param verbose logical: should file locations printed, too (default: \code{FALSE}) 
 #'
-#' @return nothing
+#' @return invisibly a data frame with topic, info and file location
 #' @importFrom shiny runApp
 #' @export
 #'
 #' @examples
 #' # collect all apps of loaded packages
 #' demoShiny() 
+#' demoShiny(verbose=TRUE) 
 #' # collect all apps of the package demoShiny or with the name demoShiny
 #' demoShiny('demoShiny') 
 #' if(interactive()) {
@@ -21,7 +23,7 @@
 #'   # use partial matching
 #'   demoShiny('silh') 
 #' }
-demoShiny <- function(topic) {
+demoShiny <- function(topic, verbose=FALSE) {
   partialmatch <- function(v, t) {
     # check for exact match 
     res <- v==t
@@ -29,7 +31,24 @@ demoShiny <- function(topic) {
     # check for start match
     startsWith(v, t)
   }
+  #
+  startsMatch <- function(x, table, nomatch = NA_integer_) {
+    ret <- rep(nomatch, length(x))
+    tab <- rep(TRUE, length(table))
+    op  <- order(nchar(x), decreasing=TRUE)
+    #browser()
+    for (i in 1:length(op)) {
+      tf <- grepl(paste0("^", x[op[i]], "\\s+"), table) & tab
+      if (any(tf)) {
+        pos        <- which(tf)[1]
+        ret[op[i]] <- trimws(substring(table[pos], nchar(x[op[i]])+1))
+        tab[pos]   <- FALSE
+      }
+    }
+    ret
+  }
   # collect all apps
+  #browser()
   spkg  <- file.path(find.package(), "shiny")
   spkg  <- spkg[dir.exists(spkg)]
   files <- list.files(spkg, '*.R', full.names = TRUE)
@@ -40,7 +59,31 @@ demoShiny <- function(topic) {
                               sapply(sdirs, function(e) { e[length(e)-2]})),
                       topic=c(sapply(sfile, function(e) { strsplit(e[length(e)], '.R', fixed=TRUE)[[1]] }),
                               sapply(sdirs, function(e) { e[length(e)]})),
+                      info =c(sapply(sfile, function(e) { strsplit(e[length(e)], '.R', fixed=TRUE)[[1]] }),
+                              sapply(sdirs, function(e) { e[length(e)]})), 
                       file =c(files, dirs), stringsAsFactors = FALSE)
+#
+  index  <- list.files(spkg, '00Index', full.names = TRUE)
+  if (length(index)) {
+    sindex <- strsplit(index, '/', fixed=TRUE)
+    pindex <- sapply(sindex, function(e) { e[length(e)-2]})
+    for (j in 1:length(pindex)) {
+      info   <- readLines(index[j])  
+      pkgind <- which(loa$pkg==pindex[j])
+      oindex <- order(nchar(loa$topic[pkgind]), decreasing = TRUE)
+      oindex <- pkgind[oindex]
+      while(length(oindex)) {
+        i  <- oindex[1]
+        tf <- grepl(paste0("^", loa$topic[i], "\\s+"), info)
+        if (any(tf)) {
+          pos <- which(tf)[1]
+          loa$info[i] <- trimws(substring(info[pos], nchar(loa$topic[i])+1))
+        }
+        oindex <- oindex[-1]
+      }
+    }  
+  }       
+#                  
   pt    <- paste(loa$pkg, loa$topic, sep='::')
   loa   <- loa[!duplicated(pt),]
   pt    <- paste(loa$pkg, loa$topic, sep='::')
@@ -61,7 +104,11 @@ demoShiny <- function(topic) {
   if (length(index)!=1) {
     loa$topic <- paste(loa$pkg, loa$topic, sep="::")
     loa$pkg   <- NULL
-    print(loa, right=FALSE)
+    nlt <- max(nchar(loa$topic))
+    for (i in 1:nrow(loa)) {
+      cat(sprintf("%-*s %s\n", nlt, loa$topic[i], loa$info[i]))
+      if (verbose) cat(' ', loa$file[i], "\n\n")
+    }
   } else {
     if (dir.exists(loa$file)) 
       runApp(loa$file)

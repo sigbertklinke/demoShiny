@@ -4,13 +4,15 @@
 \alias{demoShiny}
 \title{demoShiny}
 \usage{
-demoShiny(topic)
+demoShiny(topic, verbose = FALSE)
 }
 \arguments{
 \item{topic}{character: the topic which should be demonstrated}
+
+\item{verbose}{logical: should file locations printed, too (default: \code{FALSE})}
 }
 \value{
-nothing
+invisibly a data frame with topic, info and file location
 }
 \description{
 Runs a Shiny app as demo or shows an overview of all Shiny demo apps related to a \code{topic}. 
@@ -20,6 +22,7 @@ For more details see \code{vignettes('demoShiny')}.
 \examples{
 # collect all apps of loaded packages
 demoShiny() 
+demoShiny(verbose=TRUE) 
 # collect all apps of the package demoShiny or with the name demoShiny
 demoShiny('demoShiny') 
 if(interactive()) {

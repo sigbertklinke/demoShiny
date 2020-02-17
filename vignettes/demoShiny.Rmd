@@ -70,3 +70,8 @@ the app in the directory. The aim is to allow for a specific calls to the app, e
 
 ```{r, code=readLines(system.file('shiny', 'hist.R', package='demoShiny')), eval=FALSE}
 ```
+
+If you want to add some one liner as title then you have to create a file `00Index` in the `shiny` directory:
+
+```{r, code=readLines(system.file('shiny', '00Index', package='demoShiny')), eval=FALSE}
+```

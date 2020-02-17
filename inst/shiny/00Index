@@ -1,0 +1,10 @@
+correlation               View point cloud for a given correlation
+dbscan	                  Modify eps and nmin for DBSCAN clustering using Swiss Banknote data
+hist                      A simple histogram
+nonparametric_regression  Principle of non-parametric regression
+pca_best_line             Principal components: find the best fitting direction
+pca_max_var               Principal components: find the direction with the largest variance of projected points
+pca_reduction             Principal components: show the total variance reduction  
+scagnostics               View scatterplots based on scagnostics coefficients for Boston Housing data
+silhouette                Compute silhouette coefficient
+test_mean                 Compares the hypothetical distribution in a t-test with the empirical distribution
